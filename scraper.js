@@ -8,22 +8,22 @@ function initDatabase(callback) {
 	// Set up sqlite database.
 	var db = new sqlite3.Database("data2.sqlite");
 	db.serialize(function() {
-		db.run("CREATE TABLE IF NOT EXISTS data2 (name TEXT)");
+		db.run("CREATE TABLE IF NOT EXISTS data2 (currency TEXT, rate TEXT)");
 		callback(db);
 	});
 }
 
-function updateRow(db, value) {
+function updateRow(db, currency, rate) {
 	// Insert some data.
-	var statement = db.prepare("INSERT INTO data2 VALUES (?)");
-	statement.run(value);
+	var statement = db.prepare("INSERT INTO data2 VALUES (?, ?)");
+	statement.run([currency, rate]);
 	statement.finalize();
 }
 
 function readRows(db) {
 	// Read some data.
-	db.each("SELECT rowid AS id, name FROM data2", function(err, row) {
-		console.log(row.id + ": " + row.name);
+	db.each("SELECT rowid AS id, currency, rate FROM data2", function(err, row) {
+		console.log(row.id + ": " + row.currency + " : " + row.rate);
 	});
 }
 
@@ -44,11 +44,9 @@ function run(db) {
 	fetchPage("http://www.rhb.com.my/malaysia/products-and-services/rates-and-charges/treasury-rates/foreign-exchange", function (body) {
 		// Use cheerio to find things in the page with css selectors.
 		var $ = cheerio.load(body);
-		console.log('in body');
 		var elements = $(".text-center+ .text-right , td:nth-child(2)").each(function () {
 			var value = $(this).text().trim();
-			console.log('valuey : ' + value);
-			updateRow(db, value);
+			updateRow(db, value, 'xxx');
 		});
 
 		readRows(db);
