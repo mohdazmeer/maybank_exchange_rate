@@ -45,7 +45,7 @@ function run(db) {
 		// Use cheerio to find things in the page with css selectors.
 		var $ = cheerio.load(body);
 		console.log('in body');
-		var elements = $("#rhbcontentplaceholder_0_rhbsection1_0_tabplaceholder_0_lvForeignExchangeRates_sellLabel_0").each(function () {
+		var elements = $(".text-center+ .text-right").each(function () {
 			var value = $(this).text().trim();
 			console.log('valuey : ' + value);
 			updateRow(db, value);
