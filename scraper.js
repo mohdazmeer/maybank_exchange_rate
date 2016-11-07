@@ -62,7 +62,7 @@ function run(db) {
 		});
 		
 		for (i = 0; i < currencies.currencies; i++) {
-		    console.log(currencies[i] " + " rates[i])
+		    console.log(currencies[i] " + " rates[i]);
 		    updateRow(db, currencies[i], rates[i]);
 		}
 		
