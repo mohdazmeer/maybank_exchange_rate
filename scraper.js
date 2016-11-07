@@ -22,8 +22,8 @@ function updateRow(db, currency, rate) {
 
 function readRows(db) {
 	// Read some data.
-	db.each("SELECT rowid AS id, currency, rate FROM data3", function(err, row) {
-		console.log(row.id + ": " + row.currency + " : " + row.rate);
+	db.each("SELECT currency, rate FROM data3", function(err, row) {
+		console.log(row.currency + " : " + row.rate);
 	});
 }
 
