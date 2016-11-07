@@ -44,6 +44,8 @@ function run(db) {
 	fetchPage("http://www.rhb.com.my/malaysia/products-and-services/rates-and-charges/treasury-rates/foreign-exchange", function (body) {
 		// Use cheerio to find things in the page with css selectors.
 		var $ = cheerio.load(body);
+		var currencies = [];
+		var rates = [];
 		
 		var currElement = $("td:nth-child(2)").each(function () {
 			var value = $(this).text().trim();
