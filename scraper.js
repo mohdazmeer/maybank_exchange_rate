@@ -22,8 +22,8 @@ function updateRow(db, currency, rate) {
 
 function readRows(db) {
 	// Read some data.
-	db.each("SELECT currency, rate FROM data3", function(err, row) {
-		console.log(row.currency + " : " + row.rate);
+	db.each("SELECT rowid AS id, currency, rate FROM data3", function(err, row) {
+		console.log(row.id + " - " + row.currency + " : " + row.rate);
 	});
 }
 
@@ -47,12 +47,14 @@ function run(db) {
 		var currencies = [];
 		var rates = [];
 		
+		console.log('get currency elemenet');
 		var currElement = $("td:nth-child(2)").each(function () {
 			var value = $(this).text().trim();
 			currencies.push(value);
 			//updateRow(db, value, 'xxx');
 		});
 
+		console.log('get rate elemenet');
 		var rateElement = $(".text-center+ .text-right").each(function () {
 			var value = $(this).text().trim();
 			rates.push(value);
@@ -60,6 +62,7 @@ function run(db) {
 		});
 		
 		for (i = 0; i < currencies.currencies; i++) {
+		    console.log(currencies[i] " + " rates[i])
 		    updateRow(db, currencies[i], rates[i]);
 		}
 		
