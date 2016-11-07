@@ -6,23 +6,23 @@ var sqlite3 = require("sqlite3").verbose();
 
 function initDatabase(callback) {
 	// Set up sqlite database.
-	var db = new sqlite3.Database("data3.sqlite");
+	var db = new sqlite3.Database("data.sqlite");
 	db.serialize(function() {
-		db.run("CREATE TABLE IF NOT EXISTS data3 (currency TEXT, rate TEXT)");
+		db.run("CREATE TABLE IF NOT EXISTS data (currency TEXT, rate TEXT)");
 		callback(db);
 	});
 }
 
 function updateRow(db, currency, rate) {
 	// Insert some data.
-	var statement = db.prepare("INSERT INTO data3 VALUES (?, ?)");
+	var statement = db.prepare("INSERT INTO data VALUES (?, ?)");
 	statement.run([currency, rate]);
 	statement.finalize();
 }
 
 function readRows(db) {
 	// Read some data.
-	db.each("SELECT rowid AS id, currency, rate FROM data3", function(err, row) {
+	db.each("SELECT rowid AS id, currency, rate FROM data", function(err, row) {
 		console.log(row.id + " - " + row.currency + " : " + row.rate);
 	});
 }
@@ -47,22 +47,17 @@ function run(db) {
 		var currencies = [];
 		var rates = [];
 		
-		console.log('get currency elemenet');
 		var currElement = $("td:nth-child(2)").each(function () {
 			var value = $(this).text().trim();
 			currencies.push(value);
 			//updateRow(db, value, 'xxx');
 		});
 
-		console.log('get rate elemenet');
 		var rateElement = $(".text-center+ .text-right").each(function () {
 			var value = $(this).text().trim();
 			rates.push(value);
 			//updateRow(db, value, 'xxx');
 		});
-		
-		console.log("length currencies : "+currencies.length);
-		console.log("length rates : "+rates.length);
 		
 		for (i = 0; i < currencies.length; i++) {
 		    console.log(currencies[i] + " : " + rates[i]);
