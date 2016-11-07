@@ -41,11 +41,11 @@ function fetchPage(url, callback) {
 
 function run(db) {
 	// Use request to read in pages.
-	fetchPage("http://www.maybank2u.com.my/mbb_info/m2u/public/treasuryRates.do?channelId=BTRE-Treasury&cntTypeId=0&cntKey=BTRE04.01&programId=BTRE04-Rates&chCatId=/mbb/Business/BTRE-Treasury", function (body) {
+	fetchPage("http://www.rhb.com.my/malaysia/products-and-services/rates-and-charges/treasury-rates/foreign-exchange", function (body) {
 		// Use cheerio to find things in the page with css selectors.
 		var $ = cheerio.load(body);
 		console.log('in body');
-		var elements = $("table.even tbody tr.alt_even td").each(function () {
+		var elements = $("table tbody tr td rhbcontentplaceholder_0_rhbsection1_0_tabplaceholder_0_lvForeignExchangeRates_sellLabel_0").each(function () {
 			var value = $(this).text().trim();
 			console.log('valuey : ' + value);
 			updateRow(db, value);
