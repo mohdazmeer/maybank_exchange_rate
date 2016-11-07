@@ -41,11 +41,11 @@ function fetchPage(url, callback) {
 
 function run(db) {
 	// Use request to read in pages.
-	fetchPage("https://www.cimbclicks.com.my/clicksdemo/tacsms/transfers-remittance-rate.htm", function (body) {
+	fetchPage("http://www.maybank2u.com.my/mbb_info/m2u/public/treasuryRates.do?channelId=BTRE-Treasury&cntTypeId=0&cntKey=BTRE04.01&programId=BTRE04-Rates&chCatId=/mbb/Business/BTRE-Treasury", function (body) {
 		// Use cheerio to find things in the page with css selectors.
 		var $ = cheerio.load(body);
 
-		var elements = $("table.list td.value").each(function () {
+		var elements = $("table.even td.nowrap").each(function () {
 			var value = $(this).text().trim();
 			updateRow(db, value);
 		});
