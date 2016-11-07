@@ -61,6 +61,9 @@ function run(db) {
 			//updateRow(db, value, 'xxx');
 		});
 		
+		console.log("length currencies : "+currencies.length);
+		console.log("length rates : "+rates.length);
+		
 		for (i = 0; i < currencies.currencies; i++) {
 		    console.log(currencies[i] " + " rates[i]);
 		    updateRow(db, currencies[i], rates[i]);
