@@ -8,7 +8,7 @@ function initDatabase(callback) {
 	// Set up sqlite database.
 	var db = new sqlite3.Database("data3.sqlite");
 	db.serialize(function() {
-		db.run("CREATE TABLE IF NOT EXISTS data2 (currency TEXT, rate TEXT)");
+		db.run("CREATE TABLE IF NOT EXISTS data3 (currency TEXT, rate TEXT)");
 		callback(db);
 	});
 }
