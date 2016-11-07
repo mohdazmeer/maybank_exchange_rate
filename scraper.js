@@ -6,23 +6,23 @@ var sqlite3 = require("sqlite3").verbose();
 
 function initDatabase(callback) {
 	// Set up sqlite database.
-	var db = new sqlite3.Database("data.sqlite");
+	var db = new sqlite3.Database("data2.sqlite");
 	db.serialize(function() {
-		db.run("CREATE TABLE IF NOT EXISTS data (name TEXT)");
+		db.run("CREATE TABLE IF NOT EXISTS data2 (name TEXT)");
 		callback(db);
 	});
 }
 
 function updateRow(db, value) {
 	// Insert some data.
-	var statement = db.prepare("INSERT INTO data VALUES (?)");
+	var statement = db.prepare("INSERT INTO data2 VALUES (?)");
 	statement.run(value);
 	statement.finalize();
 }
 
 function readRows(db) {
 	// Read some data.
-	db.each("SELECT rowid AS id, name FROM data", function(err, row) {
+	db.each("SELECT rowid AS id, name FROM data2", function(err, row) {
 		console.log(row.id + ": " + row.name);
 	});
 }
